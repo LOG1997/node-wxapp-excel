@@ -1,11 +1,29 @@
 const express = require("express");
 
 const app = express();
+const https = require("https");
+const fs = require("fs");
+const path = require("path");
 
+// key文件
+const privateKey = fs.readFileSync(
+  path.join(__dirname, "./httpsKeys/2_24years.top.key"),
+  "utf8"
+);
+//crt文件
+const certificate = fs.readFileSync(
+  path.join(__dirname, "./httpsKeys/1_24years.top_bundle.crt"),
+  "utf8"
+);
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+};
+const httpsServer = https.createServer(credentials, app);
 const router = require("./router/router");
 
 // const multer = require("multer");
-const port = 4444;
+const port = 4445;
 
 //解决跨域问题
 app.use((req, res, next) => {
@@ -37,6 +55,6 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/api", router);
-app.listen(port, () => {
+httpsServer.listen(port, () => {
   console.log(`listening on port“成功”:port in ${port}`);
 });
