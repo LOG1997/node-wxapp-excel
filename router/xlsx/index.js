@@ -43,7 +43,6 @@ exports.xlsx = async (req, res) => {
       // if (cell_data) {
       //   cell_data = cell_data.replace(/\d{4}\.\d{2}\.\d{2}/g, today.toString());
       // }
-      console.log("😉cell_data:", worksheet.getRow(2).getCell(i + 1).value);
     }
   });
   // TODO:
