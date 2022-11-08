@@ -5,6 +5,8 @@ MAINTAINER log1997
 copy . /app/
 # 指定工作目录为/app
 workdir /app
+# 设置npm源
+run npm config set registry https://registry.npmmirror.com/
 # 安装依赖
 run npm install
 # 安装pm2，运行express服务
